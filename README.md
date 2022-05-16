@@ -1,1 +1,2 @@
-this a project done to create our own printf function with collaboration with Tsedal and Wastna
+this project is about creating our own printf function.
+this projected is created with collaboration of Tsedal and Wastna
