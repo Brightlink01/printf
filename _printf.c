@@ -1,6 +1,8 @@
 #include "main.h"
 #include <stddef.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
  * _printf - write output to stdout, the standard output stream
@@ -10,37 +12,60 @@
 int _printf(const char *format, ...)
 {
 	va_list arg;
+	char cha;
 	int output = 0, i = 0;
-	int (*func)();
 
-	if (!format || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
 	va_start(arg, format);
-
-	while (format[i])
+	for (; format && format[i]; i++)
 	{
-		if (format[i] == '%')
-		{
-			if (func == NULL)
-			{
-				_putchar(format[i]);
-				output++;
-				i++;
-			}
-			else
-			{
-				output += func(arg);
-				i += 2;
-				continue;
-			}
-		}
-		else
-		{
+		for (; format[i] && format[i] != '%'; i++, output++)
 			_putchar(format[i]);
-			output++;
+		if (!format[i])
+			return (output);
+		else if (format[i] == '%')
+		{
 			i++;
+			cha = format[i];
+			if (cha == '%')
+				_putchar('%');
+			else
+				output += _conv(arg, cha);
+			output++;
 		}
+		if (!format[i])
+			return (output);
 	}
 	va_end(arg);
+
+	return (output);
+}
+
+/**
+ *_conv - handle the following conversion specifiers
+ *@list: the argument list
+ *@ch: character to process
+ *
+ *Return: number of characters printed
+ */
+void _conv(va_list list, char ch)
+{
+	int j = 0;
+	int output = 0;
+	print p[] = {
+		{ 'c', print_c },
+		{ 's', print_s },
+		{ 0, NULL}
+	};
+
+	while (p[j].ch)
+	{
+		if (p[j].ch == ch)
+		{
+			output += p[j].print(list);
+			break;
+		}
+		++j;
+	}
+
 	return (output);
 }
