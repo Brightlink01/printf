@@ -18,6 +18,7 @@ int _conv(va_list arg, char ch)
 	printer_t p[] = {
 		{'c', print_c},
 		{'s', print_s},
+		{'b', print_b},
 		{0, NULL}
 	};
 	while (p[j].ch)

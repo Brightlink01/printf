@@ -25,5 +25,6 @@ int _conv(va_list arg, char ch);
 int print_c(va_list arg);
 int print_s(va_list arg);
 int print_p(va_list arg __attribute__((unused)));
+int print_b(va_list arg);
 int _puts(char *stg);
 #endif
