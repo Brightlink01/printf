@@ -11,3 +11,16 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+/**
+ *_puts - prints a string to out
+ *@str: charater pointer that prints out
+ *Return: number of char written out 
+ *
+ */
+int _puts(char *str)
+{
+register int i;
+for (i = 0; str[i]; i++)
+_putchar(str[i]);
+return (i);
+}
