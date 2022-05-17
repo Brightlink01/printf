@@ -6,12 +6,12 @@
 
 /**
  *_conv - process conversion specifier
- *@list: list of variable argument
+ *@arg: list of variable argument
  *@ch: character process
  *Return: number of characters printed
  */
 
-int _conv(va_list list, char ch)
+int _conv(va_list arg, char ch)
 {
 	int j = 0;
 	int output = 0;
@@ -24,7 +24,7 @@ int _conv(va_list list, char ch)
 	{
 		if (p[j].ch == ch)
 		{
-			output += p[j].print(list);
+			output += p[j].print(arg);
 			break;
 		}
 		++j;

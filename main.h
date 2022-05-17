@@ -16,12 +16,12 @@
 typedef struct printer
 {
 	char ch;
-	int (*print)(va_list list);
+	int (*print)(va_list arg);
 } printer_t;
 
 int _putchar(char c);
 int _printf(const char *format, ...);
-int _conv(va_list list, char ch);
+int _conv(va_list arg, char ch);
 int print_c(va_list arg);
 int print_s(va_list arg);
 int print_p(va_list arg __attribute__((unused)));
