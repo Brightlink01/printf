@@ -26,6 +26,4 @@ int print_c(va_list arg);
 int print_s(va_list arg);
 int print_p(va_list arg __attribute__((unused)));
 int _puts(char *stg);
-int print_integer(va_list);
-int print_binary(va_list);
 #endif
