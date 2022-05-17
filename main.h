@@ -11,6 +11,20 @@
 #define NUL '\0'
 
 /**
+ * struct flags - struct containing flags to "turn on"
+ * when a flag specifier is passed to _printf()
+ * @plus: flag for the '+' character
+ * @space: flag for the ' ' character
+ * @hash: flag for the '#' character
+ */
+typedef struct flags
+{
+	int plus;
+	int space;
+	int hash;
+} flags_t;
+
+/**
  * struct convert - defines a structure for symbols and functions
  *
  * @sym: The operator
@@ -41,7 +55,7 @@ int print_String(va_list val);
 int print_pointer(va_list val);
 int print_rev(va_list l);
 int print_rot13(va_list list);
-
+int get_flag(char s, flags_t *f);
 int print_number(va_list args);
 unsigned int base_len(unsigned int, int);
 char *rev_string(char *);
