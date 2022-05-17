@@ -1,0 +1,48 @@
+.\" _printf man page
+.\"
+.\"
+.\"
+.\"
+.\"
+.TH _PRINTF "July 30 2019" "0.1" "Library functions manual"
+
+.SH NAME
+.SH ""
+
+.B _printf
+- custom version for printf function.
+
+.SH SYNOPSIS
+.SH ""
+
+#include "holberton.h"
+
+int _printf(const char *[FORMAT], ...);
+
+.SH DESCRIPTION
+.SH ""
+
+
+The printf function sends formatted output to stdout.
+A custom _printf() for learning purposes was developed by cohort  #9 students Jimmer and Edward Ortiz.
+_printf() function format string is a character string, beginning and ending in its initial shift state, if any. 
+These arguments are placed using the percentage '%' operator
+
+.SS Compilation
+
+.P
+.RS
+#include "holberton.h"
+
+$ gcc -Wall -Werror -Wextra -pedantic -Wno-format *.c
+$ gcc -Wall -Werror -Wextra -pedantic -g -Wno-format *.c (for gdb debbuging)
+.RE
+
+.SS Printing
+.RS
+
+int _printf(const char *[FORMAT], ...);
+
+FORMAT is the string that takes n specifier followed by a '%'
+symbol. i.e. "Hello this is %s from %d cohort". '...' is the variadic \
+(any type of variable).
