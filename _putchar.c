@@ -14,7 +14,7 @@ int _putchar(char c)
 /**
  *_puts - prints a string to out
  *@str: charater pointer that prints out
- *Return: number of char written out 
+ *Return: number of char written out
  *
  */
 int _puts(char *str)
