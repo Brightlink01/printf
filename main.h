@@ -11,20 +11,6 @@
 #define NUL '\0'
 
 /**
- * struct flags - struct containing flags to "turn on"
- * when a flag specifier is passed to _printf()
- * @plus: flag for the '+' character
- * @space: flag for the ' ' character
- * @hash: flag for the '#' character
- */
-typedef struct flags
-{
-	int plus;
-	int space;
-	int hash;
-} flags_t;
-
-/**
  * struct convert - defines a structure for symbols and functions
  *
  * @sym: The operator
@@ -38,6 +24,18 @@ struct convert
 };
 typedef struct convert conver_t;
 
+/**
+ * struct flag_specifier - contains a flag and it's valid specifiers and func
+ * @flag: flag represented as character
+ * @specs: char pointer to array of valid specifiers for flag
+ * @f: get_flag function that returns a char pointer and modifies a char *
+ */
+typedef struct flag_specifier
+{
+	char flag;
+	char *specs;
+	char *(*f)(char *);
+} flag_t;
 
 int _printf(const char *format, ...);
 int _putchar(char c);
@@ -53,9 +51,15 @@ int print_hex(va_list list);
 int print_HEX(va_list list);
 int print_String(va_list val);
 int print_pointer(va_list val);
+char *(*get_flag_func(int flag_index, char spec))(char *);
+char *perform_flag_funcs(int *flags, char *str, char spec);
+char *do_plus_flag(char *str);
+char *do_spc_flag(char *str);
+char *do_octal_flag(char *str);
+char *do_hex_flag(char *str);
+char *do_hex_upper_flag(char *str);
 int print_rev(va_list l);
 int print_rot13(va_list list);
-int get_flag(char s, flags_t *f);
 int print_number(va_list args);
 unsigned int base_len(unsigned int, int);
 char *rev_string(char *);
