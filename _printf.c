@@ -10,48 +10,71 @@
  * Return: the number of characters printed (excluding the null)
  */
 int _printf(const char *format, ...)
-{
-	int i = 0, j = 0, output = 0;
-	va_list arg;
 
-	cf_t print[] = {
-		{"c", print_c},
-		{"s", print_s},
+	unsigned int i = 0;
+	code_f find_f[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"i", print_int},
+		{"d", print_dec},
+		{"r", print_rev},
+		{"b", print_bin},
+		{"u", print_unsig},
+		{"o", print_octal},
+		{"x", print_x},
+		{"X", print_X},
+		{"R", print_rot13},
 		{NULL, NULL}
 	};
 
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
-	va_start(arg, format);
-	while (format[i] != '\0')
+	while (find_f[i].sc)
 	{
-		if (format[i] == '%' && format[i + 1] != '%')
-		{
-			j = 0;
-
-			while (print[j].p != NULL)
-			{
-				if (format[j + 1] == print[j].print[0])
-				{
-					output = output + print[j].p(arg);
-					i++;
-				}
-				j++;
-			}
-		}
-		else if (format[i] == '%' && format[i + 1] == '%')
-		{
-			_putchar ('%');
-			i++;
-			output = output + 1;
-		}
-		else
-		{
-			_putchar (format[i]);
-			output = output + 1;
-		}
+		if (find_f[i].sc[0] == (*format))
+			return (find_f[i].f);
 		i++;
 	}
-	va_end(arg);
-	return (output);
+	return (NULL);
+}
+/**
+  * _printf - function that produces output according to a format.
+  * @format: format (char, string, int, decimal)
+  * Return: size the output text;
+  */
+int _printf(const char *format, ...)
+{
+	va_list ap;
+	int (*f)(va_list);
+	unsigned int i = 0, cprint = 0;
+
+	if (format == NULL)
+		return (-1);
+	va_start(ap, format);
+	while (format[i])
+	{
+		while (format[i] != '%' && format[i])
+		{
+			_putchar(format[i]);
+			cprint++;
+			i++;
+		}
+		if (format[i] == '\0')
+			return (cprint);
+		f = find_function(&format[i + 1]);
+		if (f != NULL)
+		{
+			cprint += f(ap);
+			i += 2;
+			continue;
+		}
+		if (!format[i + 1])
+			return (-1);
+		_putchar(format[i]);
+		cprint++;
+		if (format[i + 1] == '%')
+			i += 2;
+		else
+			i++;
+	}
+	va_end(ap);
+	return (cprint);
 }
